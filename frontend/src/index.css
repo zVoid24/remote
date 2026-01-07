@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar - Dark Navy */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 40% 18%;
+    --sidebar-ring: 217 91% 60%;
+    --sidebar-muted: 215 16% 60%;
+
+    /* Status Colors */
+    --status-published: 142 76% 36%;
+    --status-published-foreground: 0 0% 100%;
+    --status-draft: 45 93% 47%;
+    --status-draft-foreground: 0 0% 100%;
+    --status-rejected: 0 84% 60%;
+    --status-rejected-foreground: 0 0% 100%;
+    --status-approved: 142 76% 36%;
+    --status-approved-foreground: 0 0% 100%;
+    --status-under-review: 25 95% 53%;
+    --status-under-review-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+@layer components {
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors cursor-pointer;
+  }
+
+  .sidebar-item-active {
+    @apply bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium;
+  }
+
+  .status-published {
+    @apply bg-[hsl(var(--status-published))] text-[hsl(var(--status-published-foreground))];
+  }
+
+  .status-draft {
+    @apply bg-amber-100 text-amber-800;
+  }
+
+  .status-rejected {
+    @apply bg-[hsl(var(--status-rejected))] text-[hsl(var(--status-rejected-foreground))];
+  }
+
+  .status-approved {
+    @apply bg-emerald-100 text-emerald-800;
+  }
+
+  .status-under-review {
+    @apply bg-amber-100 text-amber-800;
+  }
+
+  .status-not-published {
+    @apply bg-rose-100 text-rose-700;
+  }
+}
