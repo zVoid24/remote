@@ -41,7 +41,7 @@ const AppDataSource = new DataSource({
   ],
 
   // Fix: your old path joined from current file; this is a safer pattern:
-  migrations: [path.join(__dirname, '../../migrations/*{.js,.ts}')],
+  migrations: [path.join(__dirname, 'migrations/*{.js,.ts}')],
   subscribers: [],
 });
 
