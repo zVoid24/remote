@@ -10,6 +10,11 @@ class SpecialistService {
     this.specialistRepository = null;
   }
 
+  getBaseUrl() {
+    const port = process.env.PORT || 3000;
+    return process.env.API_URL || `http://localhost:${port}`;
+  }
+
   async initialize() {
     if (!this.specialistRepository) {
       this.specialistRepository = AppDataSource.getRepository('Specialist');
@@ -91,7 +96,7 @@ class SpecialistService {
     specialists.forEach(specialist => {
       if (specialist.media) {
         specialist.media.forEach(media => {
-          media.url = `http://localhost:3000/uploads/${media.file_name}`;
+          media.url = `${this.getBaseUrl()}/uploads/${media.file_name}`;
         });
       }
     });
@@ -129,7 +134,7 @@ class SpecialistService {
     // Compute media URLs
     if (specialist.media) {
       specialist.media.forEach(media => {
-        media.url = `http://localhost:3000/uploads/${media.file_name}`;
+        media.url = `${this.getBaseUrl()}/uploads/${media.file_name}`;
       });
     }
 
@@ -242,7 +247,7 @@ class SpecialistService {
 
     // Add URL to returned media
     savedMedia.forEach(media => {
-      media.url = `http://localhost:3000/uploads/${media.file_name}`;
+      media.url = `${this.getBaseUrl()}/uploads/${media.file_name}`;
     });
 
     return savedMedia;
