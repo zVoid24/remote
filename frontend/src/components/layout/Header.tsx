@@ -32,7 +32,7 @@ export function Header({ breadcrumb = 'Dashboard', title }: HeaderProps) {
           <p className="text-xs text-muted-foreground">{breadcrumb}</p>
           <h1 className="text-lg font-semibold text-foreground">{title}</h1>
         </div>
-        
+
         {/* Mobile Title */}
         <h1 className="sm:hidden text-lg font-semibold text-foreground">{title}</h1>
       </div>
@@ -46,9 +46,7 @@ export function Header({ breadcrumb = 'Dashboard', title }: HeaderProps) {
           <Bell className="h-5 w-5 text-muted-foreground" />
           <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-destructive rounded-full" />
         </button>
-        <div className="h-8 w-8 rounded-full bg-destructive flex items-center justify-center ml-2">
-          <span className="text-destructive-foreground font-medium text-xs">GL</span>
-        </div>
+        <img src="/image.png" alt="Profile" className="h-8 w-8 rounded-full ml-2 object-cover" />
       </div>
     </motion.header>
   );

@@ -73,7 +73,7 @@ export default function AllSpecialists() {
     return <span className={`px-2.5 py-0.5 rounded-md text-xs font-medium ${styles[status] || 'bg-gray-100'}`}>{status.replace('_', ' ')}</span>;
   };
 
-  const getPublishBadge = (isDraft: boolean) => isDraft 
+  const getPublishBadge = (isDraft: boolean) => isDraft
     ? <span className="px-2.5 py-0.5 rounded-md text-xs font-medium bg-rose-100 text-rose-700">Not Published</span>
     : <span className="px-2.5 py-0.5 rounded-md text-xs font-medium bg-emerald-500 text-white">Published</span>;
 
@@ -86,7 +86,7 @@ export default function AllSpecialists() {
         </div>
         <div className="p-4 border-b">
           <div className={`flex items-center gap-3 ${sidebarCollapsed ? 'justify-center' : ''}`}>
-            <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center"><span className="text-gray-700 font-medium text-sm">GL</span></div>
+            <img src="/image.png" alt="Company Logo" className="h-10 w-10 rounded-full object-cover" />
             {!sidebarCollapsed && <div><p className="text-sm font-medium text-gray-900">Gwen Lam</p><p className="text-xs text-gray-500">ST Comp Holdings Sdn Bhd</p></div>}
           </div>
         </div>
@@ -112,14 +112,14 @@ export default function AllSpecialists() {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setMobileMenuOpen(false)} />}
-      
+
       {/* Mobile Sidebar */}
       <aside className={`lg:hidden fixed left-0 top-0 h-full w-64 bg-sidebar z-50 transform transition-transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <button onClick={() => setMobileMenuOpen(false)} className="absolute right-3 top-3 p-1"><X className="h-5 w-5 text-sidebar-foreground" /></button>
         <div className="p-4"><span className="text-xs font-medium text-sidebar-muted uppercase">Profile</span></div>
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-sidebar-accent flex items-center justify-center"><span className="text-sidebar-foreground font-medium text-sm">GL</span></div>
+            <img src="/image.png" alt="Company Logo" className="h-10 w-10 rounded-full object-cover" />
             <div><p className="text-sm font-medium text-sidebar-foreground">Gwen Lam</p><p className="text-xs text-sidebar-muted">ST Comp Holdings Sdn Bhd</p></div>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function AllSpecialists() {
           <div className="flex items-center gap-2">
             <button className="p-2 rounded-lg hover:bg-accent"><Mail className="h-5 w-5 text-muted-foreground" /></button>
             <button className="p-2 rounded-lg hover:bg-accent relative"><Bell className="h-5 w-5 text-muted-foreground" /><span className="absolute top-1.5 right-1.5 h-2 w-2 bg-destructive rounded-full" /></button>
-            <div className="h-8 w-8 rounded-full bg-destructive flex items-center justify-center ml-2"><span className="text-white font-medium text-xs">GL</span></div>
+            <img src="/image.png" alt="Profile" className="h-8 w-8 rounded-full ml-2 object-cover" />
           </div>
         </header>
 
@@ -152,7 +152,7 @@ export default function AllSpecialists() {
         <main className="flex-1 p-4 lg:p-6 overflow-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div><h2 className="text-2xl font-bold">Specialists</h2><p className="text-sm text-muted-foreground mt-1">Create and publish your services for Client's & Companies</p></div>
-            
+
             {/* Tabs */}
             <div className="flex gap-0 border-b">
               {(['all', 'drafts', 'published'] as FilterTab[]).map(tab => (
@@ -230,7 +230,7 @@ export default function AllSpecialists() {
                   </tbody>
                 </table>
               </div>
-              
+
               {/* Mobile Cards */}
               <div className="md:hidden divide-y">
                 {isLoading ? (

@@ -67,11 +67,9 @@ export function Sidebar() {
   const SidebarContent = ({ collapsed = false }: { collapsed?: boolean }) => (
     <div className="flex flex-col h-full">
       {/* Profile Section */}
-      <div className="p-4 border-b border-sidebar-border">
+      <div className="p-4 border-b">
         <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
-          <div className="h-10 w-10 rounded-full bg-sidebar-accent flex items-center justify-center flex-shrink-0">
-            <span className="text-sidebar-foreground font-medium text-sm">GL</span>
-          </div>
+          <img src="/image.png" alt="Company Logo" className="h-10 w-10 rounded-full object-cover" />
           {!collapsed && (
             <motion.div
               initial={false}
@@ -79,8 +77,8 @@ export function Sidebar() {
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <p className="text-sm font-medium text-sidebar-foreground whitespace-nowrap">Gwen Lam</p>
-              <p className="text-xs text-sidebar-muted whitespace-nowrap">ST Comp Holdings Sdn Bhd</p>
+              <p className="text-sm font-medium text-gray-900 whitespace-nowrap">Gwen Lam</p>
+              <p className="text-xs text-gray-500 whitespace-nowrap">ST Comp Holdings Sdn Bhd</p>
             </motion.div>
           )}
         </div>
@@ -173,7 +171,7 @@ export function Sidebar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeMobileSidebar}
-          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          className="lg:hidden fixed inset-0 bg-white z-40"
         />
       )}
 
@@ -182,19 +180,19 @@ export function Sidebar() {
         initial={{ x: '-100%' }}
         animate={{ x: isMobileOpen ? 0 : '-100%' }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="lg:hidden fixed left-0 top-0 h-full w-64 bg-sidebar z-50 flex flex-col"
+        className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white z-50 flex flex-col"
       >
         {/* Close Button */}
         <button
           onClick={closeMobileSidebar}
-          className="absolute right-3 top-3 p-1 rounded-lg hover:bg-sidebar-accent transition-colors"
+          className="absolute right-3 top-3 p-1 rounded-lg hover:bg-gray-100 transition-colors"
         >
-          <X className="h-5 w-5 text-sidebar-foreground" />
+          <X className="h-5 w-5 text-gray-600" />
         </button>
 
         {/* Store Label */}
         <div className="p-4">
-          <span className="text-xs font-medium text-sidebar-muted uppercase tracking-wider">
+          <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
             Profile
           </span>
         </div>

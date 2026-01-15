@@ -88,7 +88,7 @@ export default function EditSpecialist() {
       queryClient.invalidateQueries({ queryKey: ['specialist', id] });
       toast({ title: 'Success', description: 'Specialist updated successfully!' });
       setIsEditPanelOpen(false);
-      
+
       // Reset image state
       setImages([null, null, null]);
       fileInputRefs.forEach(ref => {
@@ -218,7 +218,7 @@ export default function EditSpecialist() {
         <div className="p-4">{!sidebarCollapsed && <span className="text-xs font-medium text-gray-500 uppercase">Profile</span>}</div>
         <div className="p-4 border-b">
           <div className={`flex items-center gap-3 ${sidebarCollapsed ? 'justify-center' : ''}`}>
-            <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center"><span className="text-gray-700 font-medium text-sm">GL</span></div>
+            <img src="/image.png" alt="Company Logo" className="h-10 w-10 rounded-full object-cover" />
             {!sidebarCollapsed && <div><p className="text-sm font-medium text-gray-900">Gwen Lam</p><p className="text-xs text-gray-500">ST Comp Holdings Sdn Bhd</p></div>}
           </div>
         </div>
@@ -236,10 +236,22 @@ export default function EditSpecialist() {
       </aside>
 
       {/* Mobile Sidebar */}
-      {mobileMenuOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setMobileMenuOpen(false)} />}
+      {mobileMenuOpen && <div className="lg:hidden fixed inset-0 bg-white z-40" onClick={() => setMobileMenuOpen(false)} />}
       <aside className={`lg:hidden fixed left-0 top-0 h-full w-64 bg-white z-50 transform transition-transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <button onClick={() => setMobileMenuOpen(false)} className="absolute right-3 top-3 p-1"><X className="h-5 w-5 text-gray-600" /></button>
-        <nav className="flex-1 px-3 space-y-1 mt-16">{mainNavItems.map((item) => (<a key={item.path} href={item.path} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg ${item.path === '/' ? 'bg-[#003366] text-white' : 'text-gray-600'}`}><item.icon className="h-5 w-5" /><span>{item.label}</span></a>))}</nav>
+        <div className="p-4 mt-8">
+          <span className="text-xs font-medium text-gray-500 uppercase">Profile</span>
+        </div>
+        <div className="px-4 pb-4 border-b">
+          <div className="flex items-center gap-3">
+            <img src="/image.png" alt="Company Logo" className="h-10 w-10 rounded-full object-cover" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Gwen Lam</p>
+              <p className="text-xs text-gray-500">ST Comp Holdings Sdn Bhd</p>
+            </div>
+          </div>
+        </div>
+        <nav className="flex-1 px-3 space-y-1 mt-4">{mainNavItems.map((item) => (<a key={item.path} href={item.path} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg ${item.path === '/' ? 'bg-[#003366] text-white' : 'text-gray-600'}`}><item.icon className="h-5 w-5" /><span>{item.label}</span></a>))}</nav>
       </aside>
 
       {/* Main Content */}
@@ -252,7 +264,7 @@ export default function EditSpecialist() {
           <div className="flex items-center gap-2">
             <button className="p-2"><Mail className="h-5 w-5 text-muted-foreground" /></button>
             <button className="p-2 relative"><Bell className="h-5 w-5 text-muted-foreground" /><span className="absolute top-1.5 right-1.5 h-2 w-2 bg-destructive rounded-full" /></button>
-            <div className="h-8 w-8 rounded-full bg-destructive flex items-center justify-center ml-2"><span className="text-white text-xs">GL</span></div>
+            <img src="/image.png" alt="Profile" className="h-8 w-8 rounded-full ml-2 object-cover" />
           </div>
         </header>
 
@@ -261,10 +273,10 @@ export default function EditSpecialist() {
             {/* Left Side - Service Preview */}
             <div className="lg:col-span-2 space-y-6">
               <h2 className="text-2xl font-bold">{specialist.title}</h2>
-              
+
               {/* Images */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div 
+                <div
                   className="aspect-video border-2 border-dashed rounded-lg flex flex-col items-center justify-center bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors relative overflow-hidden"
                   onClick={() => setIsEditPanelOpen(true)}
                 >
@@ -333,26 +345,24 @@ export default function EditSpecialist() {
             {/* Right Side - Actions & Pricing */}
             <div className="space-y-4">
               <div className="flex gap-2">
-                <Button variant="outline" className="flex-1" onClick={() => setIsEditPanelOpen(true)}>
+                <Button variant="outline" className="flex-1 bg-[#003366] text-white hover:bg-[#002244] hover:text-white" onClick={() => setIsEditPanelOpen(true)}>
                   <EditIcon className="h-4 w-4 mr-2" />
                   Edit
                 </Button>
-                <Button variant="outline" className="flex-1" onClick={() => deleteMutation.mutate()}>
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Delete
-                </Button>
+                {specialist.is_draft && (
+                  <Button className="flex-1 bg-[#003366] text-white hover:bg-[#002244]" onClick={() => setIsPublishModalOpen(true)}>
+                    Publish
+                  </Button>
+                )}
               </div>
-              {specialist.is_draft && (
-                <Button className="w-full" onClick={() => setIsPublishModalOpen(true)}>Publish</Button>
-              )}
-              
+
               {/* Pricing Card */}
               <div className="bg-card rounded-lg border p-6 space-y-4">
                 <div>
                   <h3 className="text-lg font-semibold">Professional Fee</h3>
                   <p className="text-sm text-muted-foreground">Set a rate for your service</p>
                 </div>
-                <div className="text-4xl font-bold">RM {specialist.base_price.toLocaleString()}</div>
+                <div className="text-4xl font-bold underline">RM {specialist.base_price.toLocaleString()}</div>
                 <div className="space-y-2 pt-4 border-t">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Base price</span>
@@ -391,16 +401,16 @@ export default function EditSpecialist() {
                 {/* Title */}
                 <div className="space-y-2">
                   <Label>Title</Label>
-                  <Input placeholder="Enter your service title" value={formData.title} onChange={e => setFormData(p => ({...p, title: e.target.value}))} />
+                  <Input placeholder="Enter your service title" value={formData.title} onChange={e => setFormData(p => ({ ...p, title: e.target.value }))} />
                 </div>
 
                 {/* Description */}
                 <div className="space-y-2">
                   <Label>Description</Label>
-                  <Textarea 
+                  <Textarea
                     placeholder="Describe your service here"
-                    value={formData.description} 
-                    onChange={e => setFormData(p => ({...p, description: e.target.value}))} 
+                    value={formData.description}
+                    onChange={e => setFormData(p => ({ ...p, description: e.target.value }))}
                     className="min-h-[150px] resize-none"
                   />
                   <p className="text-xs text-muted-foreground text-right">(500 words)</p>
@@ -410,7 +420,7 @@ export default function EditSpecialist() {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label>Estimated Completion Time (Days)</Label>
-                    <Input type="number" value={formData.duration_days} onChange={e => setFormData(p => ({...p, duration_days: e.target.value}))} />
+                    <Input type="number" value={formData.duration_days} onChange={e => setFormData(p => ({ ...p, duration_days: e.target.value }))} />
                   </div>
 
                   <div className="space-y-2">
@@ -421,7 +431,7 @@ export default function EditSpecialist() {
                           <span className="text-base">🇲🇾</span> MYR
                         </span>
                       </div>
-                      <Input type="number" value={formData.base_price} onChange={e => setFormData(p => ({...p, base_price: e.target.value}))} className="pl-24" />
+                      <Input type="number" value={formData.base_price} onChange={e => setFormData(p => ({ ...p, base_price: e.target.value }))} className="pl-24" />
                     </div>
                   </div>
                 </div>
@@ -429,7 +439,7 @@ export default function EditSpecialist() {
                 {/* Additional Offerings */}
                 <div className="space-y-2">
                   <Label>Additional Offerings</Label>
-                  <ServiceOfferingsCombobox 
+                  <ServiceOfferingsCombobox
                     offerings={serviceOfferings}
                     selectedOfferings={selectedOfferings}
                     onChange={setSelectedOfferings}
@@ -451,13 +461,13 @@ export default function EditSpecialist() {
                             className="hidden"
                             onChange={(e) => handleImageChange(i, e)}
                           />
-                          <div 
+                          <div
                             onClick={() => handleImageClick(i)}
                             className="aspect-video border-2 border-dashed rounded-lg flex flex-col items-center justify-center bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors relative overflow-hidden"
                           >
                             {images[i] ? (
                               <>
-                                <img src={URL.createObjectURL(images[i]!)} className="w-full h-full object-cover" alt={`Upload ${i+1}`} />
+                                <img src={URL.createObjectURL(images[i]!)} className="w-full h-full object-cover" alt={`Upload ${i + 1}`} />
                                 <button
                                   onClick={(e) => { e.stopPropagation(); handleRemoveImage(i); }}
                                   className="absolute top-2 right-2 p-1 bg-destructive text-white rounded-full hover:bg-destructive/90"
@@ -469,10 +479,10 @@ export default function EditSpecialist() {
                               <>
                                 <img src={specialist.media[i].url} className="w-full h-full object-cover" alt="Current" />
                                 <button
-                                  onClick={(e) => { 
-                                    e.stopPropagation(); 
+                                  onClick={(e) => {
+                                    e.stopPropagation();
                                     if (confirm('Are you sure you want to delete this image?')) {
-                                      handleDeleteMedia(specialist.media[i].id); 
+                                      handleDeleteMedia(specialist.media[i].id);
                                     }
                                   }}
                                   className="absolute top-2 right-2 p-1 bg-destructive text-white rounded-full hover:bg-destructive/90"
@@ -511,23 +521,25 @@ export default function EditSpecialist() {
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => !publishMutation.isPending && setIsPublishModalOpen(false)} className="fixed inset-0 bg-black/50 z-50" />
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-card rounded-lg shadow-xl z-50 p-6">
-              <div className="text-center space-y-4">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                  <AlertCircle className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">Publish changes?</h3>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Are you sure you want to publish this specialist? It will be visible to all users.
-                  </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <AlertCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-bold text-[#0B2147]">Publish changes</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Do you want to publish these changes? It will appear in the marketplace listing
+                    </p>
+                  </div>
                 </div>
                 <div className="flex gap-3 pt-4">
                   <Button variant="outline" onClick={() => setIsPublishModalOpen(false)} className="flex-1" disabled={publishMutation.isPending}>
-                    Cancel
+                    Continue Editing
                   </Button>
-                  <Button onClick={() => publishMutation.mutate()} className="flex-1" disabled={publishMutation.isPending}>
+                  <Button onClick={() => publishMutation.mutate()} className="flex-1 bg-[#003366] hover:bg-[#002244]" disabled={publishMutation.isPending}>
                     {publishMutation.isPending ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
-                    Confirm
+                    Save changes
                   </Button>
                 </div>
               </div>
